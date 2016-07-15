@@ -134,7 +134,7 @@
 				var subLevel = el.querySelector( 'div.mp-level' );
 				if( subLevel ) {
 					el.querySelector( 'a' ).addEventListener( self.eventtype, function( ev ) {
-						ev.preventDefault();
+						//ev.preventDefault();
 						var level = closest( el, 'mp-level' ).getAttribute( 'data-level' );
 						if( self.level <= level ) {
 							ev.stopPropagation();
