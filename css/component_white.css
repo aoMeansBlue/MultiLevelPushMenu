@@ -6,14 +6,17 @@
     box-sizing: border-box;
 }
 
-html, body, .container, .scroller {
+html, body, .container, .container-fluid, .scroller {
 	height: 100%;
+}
+
+.scroller {
+	overflow-y: hidden;
 }
 
 .scroller,
 .scroller-inner {
 	position: relative;
-	width: 100%;
 }
 
 .scroller iframe {
@@ -26,6 +29,11 @@ html, body, .container, .scroller {
 	position: relative;
 	overflow: hidden;
 	padding: 0px;
+}
+
+
+.container-fluid {
+	overflow: hidden;
 }
 
 .menu-trigger {
@@ -260,6 +268,13 @@ html, body, .container, .scroller {
 	color: rgba(0,0,0,0.3);
 	font-size: 1.3em;
 	font-family: 'linecons';
+}
+
+.mp-linkback {
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
 }
 
 .mp-menu .mp-level.mp-level-overlay > .mp-back,

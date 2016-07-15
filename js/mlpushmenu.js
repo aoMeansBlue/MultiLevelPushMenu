@@ -135,10 +135,18 @@
 				if( subLevel ) {
 					el.querySelector( 'a' ).addEventListener( self.eventtype, function( ev ) {
 						//ev.preventDefault();
+						var linkBack = document.createElement('A');
 						var level = closest( el, 'mp-level' ).getAttribute( 'data-level' );
+
+						linkBack.setAttribute('href',ev.target.href);
+						linkBack.setAttribute('target',ev.target.target);
+						linkBack.setAttribute('class','mp-level mp-level-open mp-level-overlay');
+						console.log(linkBack);
+
 						if( self.level <= level ) {
 							ev.stopPropagation();
 							classie.add( closest( el, 'mp-level' ), 'mp-level-overlay' );
+							//closest( el, 'mp-level-overlay' ).appendChild(linkBack);
 							self._openMenu( subLevel );
 						}
 					} );
