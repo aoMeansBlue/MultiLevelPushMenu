@@ -135,18 +135,17 @@
 				if( subLevel ) {
 					el.querySelector( 'a' ).addEventListener( self.eventtype, function( ev ) {
 						//ev.preventDefault();
-						var linkBack = document.createElement('A');
 						var level = closest( el, 'mp-level' ).getAttribute( 'data-level' );
 
-						linkBack.setAttribute('href',ev.target.href);
-						linkBack.setAttribute('target',ev.target.target);
-						linkBack.setAttribute('class','mp-level mp-level-open mp-level-overlay');
-						console.log(linkBack);
-
 						if( self.level <= level ) {
+							var linkBack = document.createElement('A');
+
+							linkBack.setAttribute('href',ev.target.href);
+							linkBack.setAttribute('target',ev.target.target);
+							linkBack.setAttribute('class','mp-linkback');
 							ev.stopPropagation();
 							classie.add( closest( el, 'mp-level' ), 'mp-level-overlay' );
-							//closest( el, 'mp-level-overlay' ).appendChild(linkBack);
+							closest( el, 'mp-level-overlay' ).insertBefore(linkBack, closest( el, 'mp-level-overlay' ).getElementsByTagName('h2')[0]);
 							self._openMenu( subLevel );
 						}
 					} );
@@ -159,7 +158,17 @@
 				el.addEventListener( self.eventtype, function( ev ) {
 					ev.stopPropagation();
 					var level = el.getAttribute( 'data-level' );
+
 					if( self.level > level ) {
+						var linkback = el.getElementsByClassName('mp-linkback')[0];
+
+						if(linkback.target !== ''){
+							document.getElementsByName(linkback.target)[0].src = linkback.href;
+						}
+
+						el.removeChild(linkback)
+
+						
 						self.level = level;
 						self._closeMenu();
 					}
@@ -212,6 +221,9 @@
 		_resetMenu : function() {
 			this._setTransform('translate3d(0,0,0)');
 			this.level = 0;
+			while(this.el.getElementsByClassName('mp-linkback').length > 0){
+				this.el.getElementsByClassName('mp-linkback')[0].parentNode.removeChild(this.el.getElementsByClassName('mp-linkback')[0]);
+			}
 			// remove class mp-pushed from main wrapper
 			classie.remove( this.wrapper, 'mp-pushed' );
 			this._toggleLevels();
